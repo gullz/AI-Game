@@ -61,6 +61,7 @@ namespace GAScrabble
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.lstWords = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -387,7 +388,7 @@ namespace GAScrabble
             this.groupBox1.Controls.Add(this.btnGO);
             this.groupBox1.Location = new System.Drawing.Point(13, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(312, 328);
+            this.groupBox1.Size = new System.Drawing.Size(312, 102);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
@@ -416,11 +417,21 @@ namespace GAScrabble
             this.label3.TabIndex = 12;
             this.label3.Text = resources.GetString("label3.Text");
             // 
+            // lstWords
+            // 
+            this.lstWords.FormattingEnabled = true;
+            this.lstWords.Location = new System.Drawing.Point(13, 123);
+            this.lstWords.Name = "lstWords";
+            this.lstWords.Size = new System.Drawing.Size(120, 95);
+            this.lstWords.TabIndex = 15;
+            this.lstWords.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(987, 446);
+            this.Controls.Add(this.lstWords);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAddToList);
             this.Controls.Add(this.groupBox2);
@@ -472,6 +483,7 @@ namespace GAScrabble
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListBox lstWords;
     }
 }
 

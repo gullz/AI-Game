@@ -133,6 +133,8 @@ namespace GAScrabble
 
 		public virtual void WriteNextGeneration()
 		{
+
+
 			// just write the top 20
 			Console.WriteLine("Generation {0}\n", Generation);
 			if (Generation % 1 == 0) // just print every 100 generations
@@ -142,6 +144,12 @@ namespace GAScrabble
                 foreach (Genome g in Genomes)
                 {
                     Console.WriteLine("Genome {2}: {0} --> {1}\n", g.ToString(), g.CurrentFitness, count);
+                    //----------------------------------------------
+                    // if current fitness is less than 1 it is neglected, else 
+                    // the genome is added to a list of words
+                    if (g.CurrentFitness >= 1)
+                        Form1.listOfWords.addWord(g.ToString());
+                    //----------------------------------------------
                     count++;
                     if (count == 10)
                         break;

@@ -13,17 +13,21 @@ namespace GAScrabble
 {
 
 
-
+    
     public delegate void SetScrabbleDisplayDelegate(string displayText);
     public partial class Form1 : Form
     {
 
+        //-------------------------------------
+        // retrieve words object definition
+        public static retrievWords listOfWords;
+        //-------------------------------------
 
         bool _solved = false;
         Image _tileImage = null;
         bool _stop = false; // stop flag
 
-        TextHandling txtHandling = new TextHandling(); // texthandling object from class
+        retrievWords txtHandling = new retrievWords(); // texthandling object from class
 
         Button[] btnList; // for the text buttons
 
@@ -55,11 +59,14 @@ namespace GAScrabble
 
         private void GeneticAlgorithThreadContinuous()
         {
+            //--------- defining a list ------------
+            Form1.listOfWords = new retrievWords();
+            //--------------------------------------
             // create  a new random scrabble genome population
             ScrabblePopulation population = new ScrabblePopulation();
 
             // continue through 100,000 generations or when the user hits stop
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 500; i++)
             {
 
                 // get the next generation of genomes that are closer to the desired word fitness
@@ -74,11 +81,11 @@ namespace GAScrabble
                     this.BeginInvoke(new SetScrabbleDisplayDelegate(SetScrabbleDisplay), new object[] { _answerText });
                     Invalidate();
                 }
-
+                
                 // escape if the user hit stop
-                if (_stop == true)
-                {
+                if (_stop == true)                {
                     _stop = false;
+
                     break;
                 }
 
@@ -146,10 +153,23 @@ namespace GAScrabble
             // start the algorithm in a new thread
             Thread oThread = new Thread(new ThreadStart(GeneticAlgorithThreadContinuous));
             oThread.Start();
+            //----------------------------------------------------------
+            for (int i = 0; i < 1000; i++)
+            {
+                Thread.Sleep(100);
+                if (oThread.ThreadState == ThreadState.Stopped)
+                    break;
+            }
+            listOfWords.printWordsAll();
+            string[] words = listOfWords.getWords();
+
+            lstWords.Items.AddRange(words);
+            //----------------------------------------------------------
         }
 
         Font _scrabbleFont = new Font(new FontFamily("Arial"), 24, FontStyle.Bold);
         Font _numberFont = new Font(new FontFamily("Arial"), 7, FontStyle.Bold);
+
         void DrawLetterTile(Graphics g, int position, char c)
         {
             // get the scrabble value for the letter we are painting
@@ -377,6 +397,11 @@ namespace GAScrabble
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
